@@ -23,7 +23,7 @@ diag = random.choice((G_T_2[6],G_T_2[7]))
 
 
 def AfficheMatrice(L):
-    '''Permet d'afficher une matrice'''
+    '''Displays a matrix'''
     for i in range(len(L)):
         for j in range(len(L[i])) :
             if j != len(L[i])-1:
@@ -32,7 +32,7 @@ def AfficheMatrice(L):
                 print(L[i][j])
 
 def Dif_lists(L,M):
-    '''Permet de produire un liste apartir de la difference de deux lists'''
+    '''Generates a list based on the difference between two lists'''
     L,M = set(L),set(M)
     D = L.difference(M)
     D = list(D)
@@ -40,8 +40,7 @@ def Dif_lists(L,M):
     
 
 def Search_G_T(i,j):
-    '''Permet de chercher les lignes, colonnes, diagonales de G_T
-contenants (i,j)'''
+    '''Searches for rows, columns, or diagonals in G_T containing (i, j)'''
     L = []
     k = 0
     while k <= 7:
@@ -51,8 +50,7 @@ contenants (i,j)'''
     return L
 
 def Search_G_T_2(i,j):
-    '''Permet de chercher les lignes, colonnes, diagonales de G_T_2
-contenants (i,j)'''
+    '''Searches for rows, columns, or diagonals in G_T_2 containing (i, j)'''
     L = []
     k = 0
     while k <= 7:
@@ -62,14 +60,14 @@ contenants (i,j)'''
     return L
                              
 def Is_Valide(i,j):
-    '''Permet de verifier si la cellule n'est pas encore remplit'''
+    '''Checks if a cell is not yet filled'''
     if X_O[i][j] == '-':
         return True
     else:
         return False
 
 def Test_Saisie(a,b):
-    '''Permet de tester si les variables entrées par le joueur sont valides'''
+    '''Validates the player’s input values'''
     if not a.isnumeric() or not b.isnumeric():
         return False
     else:
@@ -83,8 +81,7 @@ def Test_Saisie(a,b):
                 return True
 
 def C_move(i,j):
-    '''Pemet de produire l'ensemble des modification qui accompagnent
-le move d' ordinateur'''
+    '''Generates all changes associated with the computer's move'''
     X_O[i][j] = 'O'
     P_M.remove((i,j))
     for L in Search_G_T_2(i,j):
@@ -94,7 +91,7 @@ le move d' ordinateur'''
     
 
 def Test_end():
-    '''Permet de tester si le jeu a terminé ou non et determiner le gagnant'''
+    '''Checks if the game is over and determines the winner'''
     global end
     for L in G_T:
         if len(L) == 0 :
@@ -108,8 +105,7 @@ def Test_end():
         end = -1
                 
 def Jouer(i,j):
-    '''Pemet de produire l'ensemble des modification qui accompagnent
-le move du joueur'''
+    ''Generates all changes associated with the player’s move'''
     X_O[i][j] = 'X'
     P_M.remove((i,j))
     for L in Search_G_T(i,j):
@@ -121,7 +117,7 @@ M_diag_1 = random.choices(Dif_lists(diag,[(1,1)]),k=1)
 M_diag_2 = Dif_lists(diag,[(1,1)] + M_diag_1)
 
 def C_jouer():
-    '''Permet de determiner le move convenable'''
+    '''Determines the optimal move'''
     global end
     
     if Is_Valide(1,1) and start == 1:
@@ -182,12 +178,12 @@ def C_jouer():
 
 if start ==1:                                    #Le programme principale
     while end ==0:
-        a = input('enter N ligne: ')
-        b = input('enter N colonne: ')
+        a = input('enter row N: ')
+        b = input('enter column N: ')
         while not Test_Saisie(a,b) :
             print("Error")
-            a = input('enter N ligne: ')
-            b = input('enter N colonne: ')
+            a = input('enter row N: ')
+            b = input('enter column N: ')
         a,b = int(a)-1,int(b)-1
         Jouer(a,b)
         AfficheMatrice(X_O)
